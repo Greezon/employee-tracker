@@ -22,12 +22,9 @@ function startMenu() {
           "View Departments",
           "View Roles",
           "View Employees",
-          "Add Department",
           "Add Employees",
           "Add Roles",
           "Update Employee Roles",
-          "Delete Role",
-          "Delete Department",
           "Exit Application",
         ],
         message: "What would you like to do?",
@@ -43,9 +40,6 @@ function startMenu() {
           break;
         case "View Employees":
           viewEmployee();
-          break;
-        case "Add Department":
-          addDepartment();
           break;
         case "Add Employees":
           addEmployee();
@@ -130,6 +124,36 @@ function deleteRole() {
   });
 }
 
+function deleteDepartment() {
+  connection.query("select * from title;", function (error, record) {
+    if (error) throw error;
+    const roleChoices = record.map(({ id, title }) => ({
+      name: title,
+      value: id,
+    }));
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "roleId",
+          message: "Which role do you want to remove?",
+          choices: roleChoices,
+        },
+      ])
+      .then(function (params) {
+        connection.query(
+          "DELETE FROM title WHERE id = ?",
+          params.roleId,
+          function (error, data) {
+            if (error) throw error;
+            console.log("Successfully permenatnly deleted the role.");
+            startMenu();
+          }
+        );
+      });
+  });
+}
+
 function addEmployee() {
   // connection.query("select * roles")
   inquirer
@@ -174,7 +198,7 @@ function addEmployee() {
       {
         type: "list",
         name: "manager_id",
-        message: "Enter Manager ID",
+        message: "Enter ID",
         choices: [1, 2, 3, 4, 5, 11, 12, 13, 14, 15],
       },
     ])
@@ -276,6 +300,3 @@ function updateRole() {
       });
   });
 }
-
-// Add role table
-// follow the function above for

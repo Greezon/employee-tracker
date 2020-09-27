@@ -1,17 +1,24 @@
 use tracker;
-insert into department(name) values("production"), ("marketing"), ("distribution"),("purchasing"), ("receiving");
+insert into department(name) values
+("production"),
+("marketing"),
+("distribution"),
+("purchasing"),
+("receiving");
+
 select * from department;
 insert into title(title, salary, department_id) values
-("manager", 500000, 1), 
-("manager", 500000, 2),
-("manager", 500000, 3),
-("manager", 500000, 4),
-("manager", 500000, 5),
-("team-lead", 500000, 1), 
-("team-lead", 500000, 2),
-("team-lead", 500000, 3),
-("team-lead", 500000, 4),
-("team-lead", 500000, 5);
+("manager", 1, 1), 
+("engineer", 22, 2),
+("laborer", 333, 3),
+("ceo", 4444, 4),
+("coo", 55555, 5),
+("wing-man", 1, 1), 
+("actor", 222, 2),
+("gunman", 333, 3),
+("share-holder", 4444, 4),
+("criminal", 55555, 5);
+
 select * from title;
 
 insert into employee(first_name, last_name, role_id, manager_id) values
